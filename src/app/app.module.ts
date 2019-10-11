@@ -13,6 +13,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { environment } from '../environments/environment.prod';
+import { Base64 } from '@ionic-native/base64/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +26,8 @@ import { environment } from '../environments/environment.prod';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     File,
-    Camera
+    Camera,
+    Base64
   ],
   bootstrap: [AppComponent]
 })

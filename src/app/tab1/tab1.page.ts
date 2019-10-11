@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
 import { File } from '@ionic-native/file/ngx';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { FirebaseService } from './firebase.service';
 
 @Component({
   selector: 'app-tab1',
@@ -13,13 +14,14 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 })
 export class Tab1Page {
   protected uploadPercent: Observable<number>;
-  protected downloadUrl: Observable<string>;
+  protected downloadUrl: Promise<string>;
   
   constructor(
     private camera: Camera,
     private platform: Platform,
     private file: File,
-    private afStorage: AngularFireStorage
+    private afStorage: AngularFireStorage,
+    private firebaseService: FirebaseService
   ) {}
 
 /*  openGalery() {
@@ -83,8 +85,9 @@ private path: string;
 protected fileImage: string;
 protected imgPath: string;
 protected fileUri: string;
+protected downloadURL: string;
 
-  async openGalery() {
+  /*async openGalery() {
     
     const options: CameraOptions = {
       quality: 100,
@@ -100,7 +103,7 @@ protected fileUri: string;
         this.fileUri = /*'data:image/jpeg;base64,' +*/ imageData;
           //alert(base64Image);
          // let file: string;
-      if (this.platform.is('ios')) {
+      /*if (this.platform.is('ios')) {
         this.fileImage = this.fileUri.split('/').pop();
       } else {
         this.fileImage = this.fileUri.substring(
@@ -125,9 +128,9 @@ protected fileUri: string;
     } catch (error) {
       alert('erro: ' + error);
     }
-  }
+  }*/
 
-async uploadPicture(){
+/*async uploadPicture(){
     //alert('uploadPicture: ' + path + file ); 
     const buffer: ArrayBuffer = await this.file.readAsArrayBuffer(this.path, this.fileImage);
     const blob: Blob = new Blob([buffer], { type: 'image/jpeg'});
@@ -139,5 +142,15 @@ async uploadPicture(){
     task.snapshotChanges().pipe(
       finalize(() => this.downloadUrl = ref.getDownloadURL())
     ).subscribe();
+  }*/
+
+
+  async openGalery(){
+    this.firebaseService.openGalery();
+  }
+
+  async uploadPicture(){
+    await this.firebaseService.uploadPicture().then(downURL => this.downloadURL = downURL).catch((err) => alert(err));
+     await alert(this.downloadURL);//this.downloadUrl = url;
   }
 }
