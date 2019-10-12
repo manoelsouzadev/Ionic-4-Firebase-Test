@@ -14,7 +14,6 @@ import { FirebaseService } from './firebase.service';
 })
 export class Tab1Page {
   protected uploadPercent: Observable<number>;
-  protected downloadUrl: Promise<string>;
   
   constructor(
     private camera: Camera,
@@ -146,7 +145,8 @@ protected downloadURL: string;
 
 
   async openGalery(){
-    this.firebaseService.openGalery();
+   await this.firebaseService.openGalery().then(file => this.fileImage = file).catch((err) => alert(err));
+   await alert(this.fileImage);
   }
 
   async uploadPicture(){

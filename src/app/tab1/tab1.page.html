@@ -17,11 +17,13 @@
       <ion-label>Progresso do upload: {{ uploadPercent | async}}</ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="ion-text-wrap">URL de download: {{ downloadUrl | async}}</ion-label>
+      <ion-label class="ion-text-wrap">URL de download: {{ downloadURL }}</ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="ion-text-wrap">Imagem selecionada: {{ fileImage }}</ion-label>
     </ion-item>
+    <ion-item>
     <ion-label>Imagem no storage:</ion-label>
-    <img [src]="downloadUrl | async" *ngIf="downloadUrl | async">
+    <img [src]="downloadURL" *ngIf="downloadURL">
+    </ion-item>
 </ion-content>

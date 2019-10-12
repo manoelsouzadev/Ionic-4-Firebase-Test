@@ -30,7 +30,7 @@ export class FirebaseService {
   protected fileUri: string;
 
   async openGalery() {
-    const options: CameraOptions = {
+     const options: CameraOptions = await {
       quality: 100,
       destinationType: this.camera.DestinationType.FILE_URI,
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
@@ -38,7 +38,7 @@ export class FirebaseService {
     };
 
     try {
-      this.camera.getPicture(options).then(
+    await  this.camera.getPicture(options).then(
         imageData => {
           this.fileUri = /*'data:image/jpeg;base64,' +*/ imageData;
           //alert(base64Image);
@@ -66,6 +66,8 @@ export class FirebaseService {
     } catch (error) {
       alert('erro: ' + error);
     }
+
+    return await this.fileImage; 
   }
 
    async uploadPicture() {
